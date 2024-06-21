@@ -1,6 +1,6 @@
 function processLinks() {
   const downloadLinks = document.getElementById("downloadLinks").value;
-  const linksArray = downloadLinks.split("\n"); // Split links by newline
+  const linksArray = downloadLinks.split("\n").filter(link => link.trim()); // Split links by newline and filter out empty lines
 
   const messageElement = document.getElementById("message");
   messageElement.textContent = ""; // Clear previous messages
@@ -9,15 +9,14 @@ function processLinks() {
   let zipNamePrefix = null;
 
   linksArray.forEach((link) => {
-    const urlParts = link.split("/"); // Split URL by "/"
-    const fileName = decodeURIComponent(urlParts[urlParts.length - 1]); // Extract and decode filename
+    const fileName = getFileNameFromUrl(link); // Extract and decode filename
 
     // Extract the base filename without extension
     const lastDotIndex = fileName.lastIndexOf('.');
     const baseName = lastDotIndex !== -1 ? fileName.slice(0, lastDotIndex) : fileName;
 
-    // Extract the part of the filename before SxxExx
-    const prefixMatch = baseName.match(/(.*)S\d{2}E\d{2}/);
+    // Extract the part of the filename before SxxExx or sxxexx (case-insensitive)
+    const prefixMatch = baseName.match(/(.*)[Ss]\d{2}[Ee]\d{2}/);
     const prefix = prefixMatch ? prefixMatch[1] : null;
 
     // Determine the common prefix for ZIP file name
@@ -27,17 +26,19 @@ function processLinks() {
       zipNamePrefix = getCommonPrefix(zipNamePrefix, prefix);
     }
 
-    // Extract season number from filename (assuming S and two numbers format)
-    const seasonMatch = baseName.match(/S(\d{2})E/);
+    // Extract season number from filename (case-insensitive)
+    const seasonMatch = baseName.match(/[Ss](\d{2})[Ee]/);
     const season = seasonMatch ? parseInt(seasonMatch[1]) : null;
 
     // Create folder path based on season number (Season X)
-    const folderPath = season ? `Season ${season}` : ""; 
-    zip.folder(folderPath);
+    const folderPath = season ? `Season ${season}` : "";
+    if (folderPath) {
+      zip.folder(folderPath);
+    }
 
     // Add link as a file with .strm extension (within the folder)
     const zipFileName = baseName + ".strm";
-    zip.file(folderPath + "/" + zipFileName, link, { type: "text/plain" });
+    zip.file(folderPath ? `${folderPath}/${zipFileName}` : zipFileName, link, { type: "text/plain" });
   });
 
   let zipFileName = zipNamePrefix ? cleanUpZipFileName(zipNamePrefix) + ".zip" : "download_links_organized_by_season.zip";
@@ -70,7 +71,7 @@ function cleanUpZipFileName(fileName) {
 }
 
 function getFileNameFromUrl(url) {
-  // Extract and decode filename from URL (basic implementation)
+  // Extract and decode filename from URL
   const parts = url.split("/");
-  return decodeURIComponent(parts[parts.length - 1]); 
+  return decodeURIComponent(parts[parts.length - 1]);
 }
