@@ -32,7 +32,8 @@ button {
 
 #yearInput {
   margin-left: 10px;
-  padding: 10px;
+  padding: 5px;
   font-size: 16px;
   color: grey;
+  width: 50px;
 }
