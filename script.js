@@ -41,7 +41,13 @@ function processLinks() {
     zip.file(folderPath ? `${folderPath}/${zipFileName}` : zipFileName, link, { type: "text/plain" });
   });
 
-  let zipFileName = zipNamePrefix ? cleanUpZipFileName(zipNamePrefix) + ".zip" : "download_links_organized_by_season.zip";
+  let zipFileName = zipNamePrefix ? cleanUpZipFileName(zipNamePrefix) : "download_links_organized_by_season";
+
+  const year = getYearFromInput();
+  if (year) {
+    zipFileName += ` (${year})`;
+  }
+  zipFileName += ".zip";
 
   zip.generateAsync({ type: "blob" })
      .then(blob => {
@@ -75,3 +81,25 @@ function getFileNameFromUrl(url) {
   const parts = url.split("/");
   return decodeURIComponent(parts[parts.length - 1]);
 }
+
+// Clear the input when clicked
+function clearYearInput() {
+  var yearInput = document.getElementById('yearInput');
+  if (yearInput.value === 'year') {
+    yearInput.value = '';
+  }
+}
+
+// Function to get the year from the input
+function getYearFromInput() {
+  var yearInput = document.getElementById('yearInput').value;
+  if (yearInput.match(/^\d{4}$/)) {
+    return yearInput;
+  }
+  return '';
+}
+
+// Attach event listener to the process links button
+document.getElementById('processLinksButton').addEventListener('click', function() {
+  processLinks();
+});
