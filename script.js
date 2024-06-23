@@ -108,8 +108,3 @@ function getYearFromInput() {
   }
   return '';
 }
-
-// Attach event listener to the process links button
-document.getElementById('processLinksButton').addEventListener('click', function() {
-  processLinks();
-});
