@@ -17,8 +17,8 @@
     <textarea id="downloadLinks" rows="20" placeholder="Enter your Real-Debrid download links here (one per line)"></textarea>
     <br>
     <div id="controls">
-      <button id="processLinksButton">Process Links</button>
-      <input type="text" id="yearInput" value="year" onclick="clearYearInput()" onblur="resetYearInput()" style="color: grey; width: 50px;">
+      <input type="text" id="yearInput" value="year" style="height: 34px; color: grey;" onfocus="clearYearInput()" onblur="resetYearInput()">
+      <button onclick="processLinks()">Process Links</button>
     </div>
     <br>
     <div id="message"></div>
