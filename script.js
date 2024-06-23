@@ -87,6 +87,16 @@ function clearYearInput() {
   var yearInput = document.getElementById('yearInput');
   if (yearInput.value === 'year') {
     yearInput.value = '';
+    yearInput.style.color = 'black';
+  }
+}
+
+// Reset the input when it loses focus if it's empty
+function resetYearInput() {
+  var yearInput = document.getElementById('yearInput');
+  if (yearInput.value === '') {
+    yearInput.value = 'year';
+    yearInput.style.color = 'grey';
   }
 }
 
