@@ -1,26 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Real-Debrid to STRM</title>
-  <link rel="stylesheet" href="style.css"> 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.0/jszip.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Debrid to STRM</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="header">
-    <img src="logo.png" alt="Real-Debrid to STRM">
-    <h1>Real-Debrid to STRM</h1>
-  </div>
-  <div class="container">
-    <p>Organize your Real-Debrid download links with ease!</p>
-    <textarea id="downloadLinks" rows="20" placeholder="Enter your Real-Debrid download links here (one per line)"></textarea>
-    <br>
-    <button onclick="processLinks()">Process Links</button>
-    <br>
-    <div id="message"></div>
-  </div>
-  <script src="script.js"></script>
+    <div id="container">
+        <textarea id="linksInput" placeholder="Enter your links here"></textarea>
+        <div id="controls">
+            <button id="processLinksButton">Process Links</button>
+            <input type="text" id="yearInput" value="year" onclick="clearYearInput()" style="height: 100%; width: 50px;">
+        </div>
+        <div id="output"></div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
-
