@@ -108,3 +108,11 @@ function getYearFromInput() {
   }
   return '';
 }
+
+// Function to update the episode count
+function updateEpisodeCount() {
+  const downloadLinks = document.getElementById("downloadLinks").value;
+  const linksArray = downloadLinks.split("\n").filter(link => link.trim());
+  const episodeCount = linksArray.length;
+  document.getElementById("episodeCount").textContent = `${episodeCount} episodes to process`;
+}
