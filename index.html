@@ -14,11 +14,12 @@
   </div>
   <div class="container">
     <p>Organize your Real-Debrid download links with ease!</p>
-    <textarea id="downloadLinks" rows="20" placeholder="Enter your Real-Debrid download links here (one per line)"></textarea>
+    <textarea id="downloadLinks" rows="20" placeholder="Enter your Real-Debrid download links here (one per line)" oninput="updateEpisodeCount()"></textarea>
     <br>
     <div id="controls">
       <button onclick="processLinks()">Process Links</button>
       <input type="text" id="yearInput" value="year" style="height: 26px; width: 30px; color: grey;" onfocus="clearYearInput()" onblur="resetYearInput()">
+      <span id="episodeCount" style="margin-left: 20px;">0 episodes to process</span>
     </div>
     <br>
     <div id="message"></div>
